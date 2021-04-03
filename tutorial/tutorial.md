@@ -209,4 +209,54 @@ Then we use a stream to read all the stuff from the standard input and convert i
 Now the image - we use `stbi_load` to get the image data, the width, height, and number of channels (should be 3!).
 Then we just call our embedding function and save the image if we are successful.
 
-We have done it! We have hidden the data! But how do we get it back?
+We have done it! We have hidden the data! But how do we get it back? With a new file, called `extract.cpp`:
+
+```
+#define STB_IMAGE_IMPLEMENTATION
+#include "3rdparty/stb/stb_image.h"
+#include "stegano.h"
+#include <iostream>
+#include <string>
+
+int main(int argc, char ** argv) {
+
+    if (argc < 2) {
+        std::cout<<"Usage: find input.bmp"<<std::endl;
+        return -1;
+    }
+    
+    int w, h, channels;
+    unsigned char * imdata = stbi_load(argv[1], &w, &h, &channels, 0);
+
+    std::cout<<stegano::extract(imdata, w*h*channels);
+    std::cout.flush();
+
+
+    return 0;
+}
+```
+
+Again, nothing special - we read the image and give it to our extraction function. After that we output the returned string and are done. Finally, for completeness, the Makefile in our source directory:
+
+```
+all: stegano_embed stegano_extract
+
+stegano_embed: src/embed.cpp src/stegano.cpp
+	g++ src/embed.cpp src/stegano.cpp  -o stegano_embed
+
+stegano_extract: src/extract.cpp src/stegano.cpp
+	g++ src/extract.cpp src/stegano.cpp  -o stegano_extract
+
+```
+
+Nothing special to see here.
+If we build our program now with `make`, we get our new binaries and can play around with it:
+
+
+```
+echo secret | ./stegano_embed in.bmp out.bmp
+./stegano_extract out.bmp
+```
+
+Of course, `in.bmp` should exist.
+Look at the images and see, if you can see any difference!
