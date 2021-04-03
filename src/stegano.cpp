@@ -3,9 +3,6 @@
 #include <string>
 
 #define CLEAR 0b11111100
-#define GOING 0b11111110
-#define END   0b00000001
-
 
 #define MASK_1 0b11000000
 #define MASK_2 0b00110000
@@ -18,9 +15,9 @@ namespace stegano {
 
 
 
-bool hide(unsigned char * image, int length, const char * text)
+bool embed(unsigned char * image, int length, const char * text)
 {
-    int free_chars = length/3;
+    int free_chars = length/4;
 
     int textlen = strlen(text);
     if(free_chars < textlen)
@@ -30,8 +27,7 @@ bool hide(unsigned char * image, int length, const char * text)
 
     int x, y, pos;
     unsigned char data[4];
-    int i;
-    for(i = 0; i<=textlen; i++)
+    for(int i = 0; i<=textlen; i++)
     {
         data[0] = ( text[i] & MASK_1 ) >> 6;
         data[1] = ( text[i] & MASK_2 ) >> 4;
@@ -48,7 +44,7 @@ bool hide(unsigned char * image, int length, const char * text)
     return true;
 }
 
-std::string find(const unsigned char * image, int length)
+std::string extract(const unsigned char * image, int length)
 {
     std::string returnstring = "";
     unsigned char c;

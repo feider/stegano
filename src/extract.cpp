@@ -18,7 +18,7 @@ int main(int argc, char ** argv) {
 
 
 
-    std::cout<<stegano::find(imdata, w*h*channels);
+    std::cout<<stegano::extract(imdata, w*h*channels);
     std::cout.flush();
 
 

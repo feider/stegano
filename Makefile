@@ -1,8 +1,8 @@
 
-all: shide sfind
+all: stegano_embed stegano_extract
 
-shide: src/hide.cpp src/stegano.cpp
-	g++ src/hide.cpp src/stegano.cpp  -o shide
+stegano_embed: src/embed.cpp src/stegano.cpp
+	g++ src/embed.cpp src/stegano.cpp  -o stegano_embed
 
-sfind: src/find.cpp src/stegano.cpp
-	g++ src/find.cpp src/stegano.cpp  -o sfind
+stegano_extract: src/extract.cpp src/stegano.cpp
+	g++ src/extract.cpp src/stegano.cpp  -o stegano_extract
