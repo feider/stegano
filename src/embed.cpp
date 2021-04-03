@@ -19,15 +19,9 @@ int main(int argc, char ** argv) {
 
     int w, h, channels;
 
-    //unsigned char * imdata = tinyimg::load(argv[1], w, h, TINYIMG_RGB);
-    //unsigned char * imdata = tinyimg_load(argv[1], &w, &h, TINYIMG_RGB);
-
     unsigned char * imdata = stbi_load(argv[1], &w, &h, &channels, 0);
 
-
-
-
-    if(!stegano::hide(imdata, w*h*3, data.c_str()))
+    if(!stegano::embed(imdata, w*h*3, data.c_str()))
     {
         std::cout<<"image to small for data!"<<std::endl;
         return -1;

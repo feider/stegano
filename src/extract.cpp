@@ -10,13 +10,9 @@ int main(int argc, char ** argv) {
         std::cout<<"Usage: find input.bmp"<<std::endl;
         return -1;
     }
-
-
-
+    
     int w, h, channels;
     unsigned char * imdata = stbi_load(argv[1], &w, &h, &channels, 0);
-
-
 
     std::cout<<stegano::extract(imdata, w*h*channels);
     std::cout.flush();

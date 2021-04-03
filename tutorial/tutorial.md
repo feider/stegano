@@ -177,6 +177,7 @@ First, the hiding - we create a new file, called `embed.cpp` in the src folder:
 #include <iterator>
 #include <string>
 
+
 int main(int argc, char ** argv) {
 
     if (argc < 3) {
@@ -189,16 +190,9 @@ int main(int argc, char ** argv) {
 
     int w, h, channels;
 
-    //unsigned char * imdata = tinyimg::load(argv[1], w, h, TINYIMG_RGB);
-    //unsigned char * imdata = tinyimg_load(argv[1], &w, &h, TINYIMG_RGB);
-
     unsigned char * imdata = stbi_load(argv[1], &w, &h, &channels, 0);
 
-
-
-
-    if(!stegano::embed(imdata, w*h*3, data.c_str()))
-    {
+    if(!stegano::embed(imdata, w*h*3, data.c_str())) {
         std::cout<<"image to small for data!"<<std::endl;
         return -1;
     }
@@ -207,5 +201,12 @@ int main(int argc, char ** argv) {
 
     return 0;
 }
-
 ```
+
+The includes look a bit strange, because we need to define`STD_IMAGE_IMPLEMENTATION` and `STB_IMAGE_WRITE_IMPLEMENTATION` before we include the respective header files, a small speciality of these two header-only-single-file libraries. However, they are very nice to use and do what we want: read images and return the raw bytes or save the raw bytes as images.
+First we make sure, that the program is called correctly. You could do more to make sure the input file exists.
+Then we use a stream to read all the stuff from the standard input and convert it into a string.
+Now the image - we use `stbi_load` to get the image data, the width, height, and number of channels (should be 3!).
+Then we just call our embedding function and save the image if we are successful.
+
+We have done it! We have hidden the data! But how do we get it back?
