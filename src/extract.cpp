@@ -7,7 +7,7 @@
 int main(int argc, char ** argv) {
 
     if (argc < 2) {
-        std::cout<<"Usage: find input.bmp"<<std::endl;
+        std::cout<<"Usage: stegano_extract input.bmp"<<std::endl;
         return -1;
     }
     

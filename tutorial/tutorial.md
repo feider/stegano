@@ -43,8 +43,8 @@ Inside the `stegano.h` we put
 #include <string>
 
 namespace stegano {
-bool hide(unsigned char * image, int length, const char * src);
-std::string find(const unsigned char * image, int length);
+bool embed(unsigned char * image, int length, const char * src);
+std::string extract(const unsigned char * image, int length);
 }
 
 #endif
@@ -52,8 +52,8 @@ std::string find(const unsigned char * image, int length);
 
 We define it as our header file and define our stegano namespace.
 In the first step we declare our hiding and finding functions.
-`hide` takes the image as an unsigned char array with it's length and the text to embed as another char array and returns a bood that tells us if we were successful.
-`find` takes the image as an unsigned char array and it's lenght and returns the embedded message as a C++ string.
+`embed` takes the image as an unsigned char array with it's length and the text to embed as another char array and returns a bood that tells us if we were successful.
+`extract` takes the image as an unsigned char array and it's lenght and returns the embedded message as a C++ string.
 
 
 ## Hiding the data
@@ -181,7 +181,7 @@ First, the hiding - we create a new file, called `embed.cpp` in the src folder:
 int main(int argc, char ** argv) {
 
     if (argc < 3) {
-        std::cout<<"Usage: hide input.bmp output.bmp"<<std::endl;
+        std::cout<<"Usage: embed input.bmp output.bmp"<<std::endl;
         return -1;
     }
 
@@ -221,7 +221,7 @@ We have done it! We have hidden the data! But how do we get it back? With a new 
 int main(int argc, char ** argv) {
 
     if (argc < 2) {
-        std::cout<<"Usage: find input.bmp"<<std::endl;
+        std::cout<<"Usage: extract input.bmp"<<std::endl;
         return -1;
     }
     

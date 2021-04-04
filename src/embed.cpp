@@ -10,7 +10,7 @@
 int main(int argc, char ** argv) {
 
     if (argc < 3) {
-        std::cout<<"Usage: hide input.bmp output.bmp"<<std::endl;
+        std::cout<<"Usage: stegano_embed input.bmp output.bmp"<<std::endl;
         return -1;
     }
 
