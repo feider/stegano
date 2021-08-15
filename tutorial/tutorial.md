@@ -5,7 +5,7 @@ A small tutorial on how to hide information in bitmap images.
 An image normally consists of x times y times 3 bytes.
 Classically, the bytes represent the red, green and blue values of the pixel at the x and y coordinate.
 Small differences in pixel values can only hardly be seen by the human eye - so it should be easy to hide information there.
-The idea of this steganographic file, is to hide a string - a series of bytes - in the lowest bits of the pixels of an image.
+The idea of this steganographic approach, is to hide a string - a series of bytes - in the lowest bits of the pixels of an image.
 
 I'll walk you step by step through the creation of a software capable of that.
 
@@ -52,7 +52,7 @@ std::string extract(const unsigned char * image, int length);
 
 We define it as our header file and define our stegano namespace.
 In the first step we declare our hiding and finding functions.
-`embed` takes the image as an unsigned char array with it's length and the text to embed as another char array and returns a bood that tells us if we were successful.
+`embed` takes the image as an unsigned char array with it's length and the text to embed as another char array and returns a bool that tells us if we were successful.
 `extract` takes the image as an unsigned char array and it's lenght and returns the embedded message as a C++ string.
 
 
@@ -86,11 +86,11 @@ namespace stegano {
 We include the necessary string functions as well as our header file.
 Next come some definitions:
 
-* `CLEAR` is a bit mask which marks the bits that should be kept int he color as 1, the bits to discard as 0.
+* `CLEAR` is a bit mask which marks the bits that should be kept in the pixel color as 1, the bits to discard as 0.
 * `MASK_1` to `MASK_4` are bit masks that are used to split our char into different parts.
 * `MASK_CONTENT` is the oppisite of clear, to access the content.
 
-Then we define our namespace and write our embedding function
+Then we define our namespace and write our embedding function:
 
 ```
 bool embed(unsigned char * image, int length, const char * text)
@@ -130,7 +130,7 @@ We do this by using a logical `and` with the masks we previously defined, and th
 Once we have our character split up nicely, we embed it in the next 4 bytes. We first calculate our offset from the beginning of the image (number of the character times 4).
 Then we clear the lowest two bits of the bytes to 0 with our `CLEAR` mask and add our character parts.
 
-Voila! it's encoded!
+Voilà! It's encoded!
 
 ## Extracting the Data
 
